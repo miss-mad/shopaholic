@@ -10,7 +10,7 @@ router.get("/", (req, res) => {
   // find all tags
   // be sure to include its associated Product data
   Tag.findAll({
-    include: [{ model: Product }, { model: ProductTag }],
+    include: [{ model: Product }],
   }).then((allTagData) => {
     res.status(200).json(allTagData);
   });
@@ -25,7 +25,7 @@ router.get("/:id", (req, res) => {
     where: {
       id: req.params.id,
     },
-    include: [{ model: Product }, { model: ProductTag }],
+    include: [{ model: Product }],
   }).then((oneTagData) => {
     res.json(oneTagData);
   });
@@ -35,7 +35,7 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   /* req.body should look like this...
   {
-    tag_name: "orange"
+    "tag_name": "orange"
   }
   */
   // create a new tag
@@ -49,9 +49,23 @@ router.post("/", (req, res) => {
     });
 });
 
-// POSTMAN - TAG: PUT http://localhost:3001/api/tags/1 ()
+// POSTMAN - TAG: PUT http://localhost:3001/api/tags/6 ()
 router.put("/:id", (req, res) => {
   // update a tag's name by its `id` value
+  /* req.body should look like this...
+    {
+      "id": 6,
+      "tag_name": "purple"
+    }
+  */
+  Tag.update({ tag_name: req.body.tag_name }, { where: { id: 1 } })
+    .then((updatedTag) => {
+      res.status(200).json(updatedTag);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
 // POSTMAN - TAG: DELETE http://localhost:3001/api/tags/1 ()

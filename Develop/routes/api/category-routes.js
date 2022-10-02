@@ -35,13 +35,13 @@ router.get("/:id", (req, res) => {
 router.post("/", (req, res) => {
   /* req.body should look like this...
     {
-      category_name: "Pants"
+      "category_name": "Pants"
     }
   */
   // create a new category
   Category.create(req.body)
-    .then((category) => {
-      res.status(200).json(category);
+    .then((newCategory) => {
+      res.status(200).json(newCategory);
     })
     .catch((err) => {
       console.log(err);
@@ -49,12 +49,29 @@ router.post("/", (req, res) => {
     });
 });
 
-// POSTMAN - CATEGORY: PUT http://localhost:3001/api/categories/3 ()
+// POSTMAN - CATEGORY: PUT http://localhost:3001/api/categories/6 (Pants)
 router.put("/:id", (req, res) => {
   // update a category by its `id` value
+  /* req.body should look like this...
+    {
+      "id": 1,
+      "category_name": "Sunglasses"
+    }
+  */
+  Category.update(
+    { category_name: req.body.category_name },
+    { where: { id: 1 } }
+  )
+    .then((updatedCategory) => {
+      res.status(200).json(updatedCategory);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
-// POSTMAN - CATEGORY: DELETE http://localhost:3001/api/categories/3 ()
+// POSTMAN - CATEGORY: DELETE http://localhost:3001/api/categories/3 (music)
 router.delete("/:id", (req, res) => {
   // delete a category by its `id` value
   Category.destroy({
