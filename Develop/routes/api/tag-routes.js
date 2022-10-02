@@ -57,7 +57,7 @@ router.put("/:id", (req, res) => {
       "tag_name": "purple"
     }
   */
-  Tag.update({ tag_name: req.body.tag_name }, { where: { id: 1 } })
+  Tag.update({ tag_name: req.body.tag_name }, { where: { id: req.params.id } })
     .then((updatedTag) => {
       res.status(200).json(updatedTag);
     })
