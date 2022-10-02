@@ -9,6 +9,7 @@ const { Category, Product } = require("../../models");
 router.get("/", (req, res) => {
   // find all categories
   // be sure to include its associated Products
+  // no request body
   Category.findAll({
     include: [{ model: Product }],
   }).then((allCategoryData) => {
@@ -21,6 +22,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   // find one category by its `id` value
   // be sure to include its associated Products
+  // no request body
   Category.findOne({
     where: {
       id: req.params.id,
@@ -31,6 +33,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
+// create new category
 // POSTMAN - CATEGORY: POST http://localhost:3001/api/categories/ (Pants)
 router.post("/", (req, res) => {
   /* req.body should look like this...
@@ -38,7 +41,6 @@ router.post("/", (req, res) => {
       "category_name": "Pants"
     }
   */
-  // create a new category
   Category.create(req.body)
     .then((newCategory) => {
       res.status(200).json(newCategory);
@@ -49,7 +51,8 @@ router.post("/", (req, res) => {
     });
 });
 
-// POSTMAN - CATEGORY: PUT http://localhost:3001/api/categories/6 (Shirts renamed to Sunglasses)
+// update category
+// POSTMAN - CATEGORY: PUT http://localhost:3001/api/categories/6 (Pants renamed to Sunglasses)
 router.put("/:id", (req, res) => {
   // update a category by its `id` value
   /* req.body should look like this...
@@ -70,9 +73,11 @@ router.put("/:id", (req, res) => {
     });
 });
 
-// POSTMAN - CATEGORY: DELETE http://localhost:3001/api/categories/3 (music)
+// delete category
+// POSTMAN - CATEGORY: DELETE http://localhost:3001/api/categories/6 (Sunglasses)
 router.delete("/:id", (req, res) => {
   // delete a category by its `id` value
+  // no request body
   Category.destroy({
     where: {
       id: req.params.id,

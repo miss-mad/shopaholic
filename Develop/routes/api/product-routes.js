@@ -11,6 +11,7 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 router.get("/", (req, res) => {
   // find all products
   // included associated Category and Tag data
+  // no request body
   Product.findAll({
     include: [{ model: Category }, { model: Tag }],
   }).then((allProductData) => {
@@ -23,6 +24,7 @@ router.get("/", (req, res) => {
 router.get("/:id", (req, res) => {
   // find a single product by its `id`
   // included associated Category and Tag data
+  // no request body
   Product.findOne({
     where: {
       id: req.params.id,
@@ -34,16 +36,22 @@ router.get("/:id", (req, res) => {
 });
 
 // create new product
-// POSTMAN - PRODUCT: POST http://localhost:3001/api/products/ ()
+// POSTMAN - PRODUCT: POST http://localhost:3001/api/products/ (Sandals)
 router.post("/", (req, res) => {
   /* req.body should look like this...
     {
-      product_name: "Sandals",
-      price: 25.00,
-      stock: 3,
-      tagIds: [1, 2, 3, 4]
-      category_id: 5
-    }
+    "product_name": "Sandals",
+    "price": 25.00,
+    "stock": 3,
+    "category_id": 5,
+    "tagIds": [
+        3,
+        4,
+        5,
+        6,
+        7
+    ]
+}
   */
   Product.create(req.body)
     .then((product) => {
@@ -68,9 +76,20 @@ router.post("/", (req, res) => {
 });
 
 // update product
-// POSTMAN - PRODUCT: PUT http://localhost:3001/api/products/4 ()
+// POSTMAN - PRODUCT: PUT http://localhost:3001/api/products/6 (update sandals bc they're on sale)
 router.put("/:id", (req, res) => {
   // update product data
+  /* req.body should look like this...
+    {
+    "product_name": "Sandals - Sale!",
+    "price": 12.00,
+    "stock": 1,
+    "category_id": 5,
+    "tagIds": [
+        5
+    ]
+}
+  */
   Product.update(req.body, {
     where: {
       id: req.params.id,
@@ -110,9 +129,11 @@ router.put("/:id", (req, res) => {
     });
 });
 
-// POSTMAN - PRODUCT: DELETE http://localhost:3001/api/products/7 (higher priced sandals)
+// delete product
+// POSTMAN - PRODUCT: DELETE http://localhost:3001/api/products/6 (delete sandals)
 router.delete("/:id", (req, res) => {
   // delete one product by its `id` value
+  // no request body
   Product.destroy({
     where: {
       id: req.params.id,

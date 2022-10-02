@@ -9,6 +9,7 @@ const { Tag, Product, ProductTag } = require("../../models");
 router.get("/", (req, res) => {
   // find all tags
   // be sure to include its associated Product data
+  // no request body
   Tag.findAll({
     include: [{ model: Product }],
   }).then((allTagData) => {
@@ -17,10 +18,11 @@ router.get("/", (req, res) => {
 });
 
 // get one tag
-// POSTMAN - TAG: GET ONE http://localhost:3001/api/tags/1 (rock music)
+// POSTMAN - TAG: GET ONE http://localhost:3001/api/tags/2 (pop music)
 router.get("/:id", (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
+  // no request body
   Tag.findOne({
     where: {
       id: req.params.id,
@@ -31,6 +33,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
+// create new tag
 // POSTMAN - TAG: POST http://localhost:3001/api/tags/ (orange)
 router.post("/", (req, res) => {
   /* req.body should look like this...
@@ -38,7 +41,6 @@ router.post("/", (req, res) => {
     "tag_name": "orange"
   }
   */
-  // create a new tag
   Tag.create(req.body)
     .then((tag) => {
       res.status(200).json(tag);
@@ -49,6 +51,7 @@ router.post("/", (req, res) => {
     });
 });
 
+// update tag
 // POSTMAN - TAG: PUT http://localhost:3001/api/tags/6 ()
 router.put("/:id", (req, res) => {
   // update a tag's name by its `id` value
@@ -67,9 +70,11 @@ router.put("/:id", (req, res) => {
     });
 });
 
-// POSTMAN - TAG: DELETE http://localhost:3001/api/tags/1 ()
+// delete tag
+// POSTMAN - TAG: DELETE http://localhost:3001/api/tags/9 (orange)
 router.delete("/:id", (req, res) => {
   // delete on tag by its `id` value
+  // no request body
   Tag.destroy({
     where: {
       id: req.params.id,
