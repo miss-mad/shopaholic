@@ -1,9 +1,11 @@
 const router = require("express").Router();
 const { Tag, Product, ProductTag } = require("../../models");
 
-// The `/api/tags` endpoint
+// "/api/tags" = endpoint
 // http://localhost:3001/api/tags = route
 
+// get all tags
+// POSTMAN - TAG: GET ALL http://localhost:3001/api/tags (get all tags)
 router.get("/", (req, res) => {
   // find all tags
   // be sure to include its associated Product data
@@ -15,6 +17,7 @@ router.get("/", (req, res) => {
 });
 
 // get one tag
+// POSTMAN - TAG: GET ONE http://localhost:3001/api/tags/1 (rock music)
 router.get("/:id", (req, res) => {
   // find a single tag by its `id`
   // be sure to include its associated Product data
@@ -28,14 +31,17 @@ router.get("/:id", (req, res) => {
   });
 });
 
+// POSTMAN - TAG: POST http://localhost:3001/api/tags/ ()
 router.post("/", (req, res) => {
   // create a new tag
 });
 
+// POSTMAN - TAG: PUT http://localhost:3001/api/tags/1 ()
 router.put("/:id", (req, res) => {
   // update a tag's name by its `id` value
 });
 
+// POSTMAN - TAG: DELETE http://localhost:3001/api/tags/1 ()
 router.delete("/:id", (req, res) => {
   // delete on tag by its `id` value
   Tag.destroy({

@@ -1,12 +1,13 @@
 const router = require("express").Router();
 const { Product, Category, Tag, ProductTag } = require("../../models");
 
-// The `/api/products` endpoint
+// "/api/products" = endpoint
 // http://localhost:3001/api/products = route
 // defaults to a get request
 
 // get all products
 // should show all products in postman as an array of objects
+// POSTMAN - PRODUCT: GET ALL http://localhost:3001/api/products (get all products)
 router.get("/", (req, res) => {
   // find all products
   // included associated Category and Tag data
@@ -18,6 +19,7 @@ router.get("/", (req, res) => {
 });
 
 // get one product
+// POSTMAN - PRODUCT: GET ONE http://localhost:3001/api/products/4 (vinyl record)
 router.get("/:id", (req, res) => {
   // find a single product by its `id`
   // included associated Category and Tag data
@@ -32,14 +34,15 @@ router.get("/:id", (req, res) => {
 });
 
 // create new product
+// POSTMAN - PRODUCT: POST http://localhost:3001/api/products/ ()
 router.post("/", (req, res) => {
   /* req.body should look like this...
     {
-      product_name: "Basketball",
-      price: 200.00,
+      product_name: "Sandals",
+      price: 25.00,
       stock: 3,
       tagIds: [1, 2, 3, 4]
-      // missing category_id: 3
+      category_id: 5
     }
   */
   Product.create(req.body)
@@ -65,6 +68,7 @@ router.post("/", (req, res) => {
 });
 
 // update product
+// POSTMAN - PRODUCT: PUT http://localhost:3001/api/products/4 ()
 router.put("/:id", (req, res) => {
   // update product data
   Product.update(req.body, {
@@ -106,6 +110,7 @@ router.put("/:id", (req, res) => {
     });
 });
 
+// POSTMAN - PRODUCT: DELETE http://localhost:3001/api/products/7 (higher priced sandals)
 router.delete("/:id", (req, res) => {
   // delete one product by its `id` value
   Product.destroy({
