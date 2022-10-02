@@ -1,3 +1,5 @@
+// npm run seed runs this file to seed each table in the ecommerce database
+
 const seedCategories = require('./category-seeds');
 const seedProducts = require('./product-seeds');
 const seedTags = require('./tag-seeds');

@@ -1,8 +1,10 @@
-// import models
+// Import models
 const Product = require("./Product");
 const Category = require("./Category");
 const Tag = require("./Tag");
 const ProductTag = require("./ProductTag");
+
+// ASSOCIATIONS
 
 // Product belongs to Category, as a category can have multiple products but a product can only belong to one category.
 Product.belongsTo(Category, {
@@ -24,6 +26,7 @@ Product.belongsToMany(Tag, { through: ProductTag }, { onDelete: "cascade" });
 // Tag belongs to many Product models.
 Tag.belongsToMany(Product, { through: ProductTag });
 
+// Export associations
 module.exports = {
   Product,
   Category,
