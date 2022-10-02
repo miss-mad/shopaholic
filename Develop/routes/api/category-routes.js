@@ -49,12 +49,11 @@ router.post("/", (req, res) => {
     });
 });
 
-// POSTMAN - CATEGORY: PUT http://localhost:3001/api/categories/6 (Pants)
+// POSTMAN - CATEGORY: PUT http://localhost:3001/api/categories/6 (Shirts renamed to Sunglasses)
 router.put("/:id", (req, res) => {
   // update a category by its `id` value
   /* req.body should look like this...
     {
-      "id": 1,
       "category_name": "Sunglasses"
     }
   */

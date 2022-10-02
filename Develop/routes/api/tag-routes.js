@@ -54,7 +54,6 @@ router.put("/:id", (req, res) => {
   // update a tag's name by its `id` value
   /* req.body should look like this...
     {
-      "id": 6,
       "tag_name": "purple"
     }
   */
