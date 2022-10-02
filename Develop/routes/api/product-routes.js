@@ -9,22 +9,25 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 // should show all products in postman as an array of objects
 router.get("/", (req, res) => {
   // find all products
-  // be sure to include its associated Category and Tag data - not sure what this means?
-  Product.findAll().then((productData) => {
-    res.status(200).json(productData);
+  // included associated Category and Tag data
+  Product.findAll({
+    include: [{ model: Category }, { model: Tag }],
+  }).then((allProductData) => {
+    res.status(200).json(allProductData);
   });
 });
 
 // get one product
 router.get("/:id", (req, res) => {
   // find a single product by its `id`
-  // be sure to include its associated Category and Tag data
+  // included associated Category and Tag data
   Product.findOne({
     where: {
       id: req.params.id,
     },
-  }).then((productData) => {
-    res.json(productData);
+    include: [{ model: Category }, { model: Tag }],
+  }).then((oneProductData) => {
+    res.json(oneProductData);
   });
 });
 
