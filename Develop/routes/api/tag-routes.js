@@ -31,9 +31,22 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// POSTMAN - TAG: POST http://localhost:3001/api/tags/ ()
+// POSTMAN - TAG: POST http://localhost:3001/api/tags/ (orange)
 router.post("/", (req, res) => {
+  /* req.body should look like this...
+  {
+    tag_name: "orange"
+  }
+  */
   // create a new tag
+  Tag.create(req.body)
+    .then((tag) => {
+      res.status(200).json(tag);
+    })
+    .catch((err) => {
+      console.log(err);
+      res.status(400).json(err);
+    });
 });
 
 // POSTMAN - TAG: PUT http://localhost:3001/api/tags/1 ()
