@@ -17,7 +17,8 @@ Category.hasMany(Product, {
 
 // Products belongToMany Tags (through ProductTag)
 // Product belongs to many Tag models. Using the ProductTag through model, allow products to have multiple tags and tags to have many products.
-Product.belongsToMany(Tag, { through: ProductTag });
+// Cascade when product is deleted so that the product's tags are also deleted
+Product.belongsToMany(Tag, { through: ProductTag }, { onDelete: "cascade" });
 
 // Tags belongToMany Products (through ProductTag)
 // Tag belongs to many Product models.
