@@ -5,30 +5,26 @@ Quick and easy inventory manager!
 
 - [Description](#description)
 - [Deployed Application](#deployed-application)
-- [Future Improvements](#future-improvements)
 - [Usage](#usage)
 - [Credits](#credits)
 - [License](#license)
 
 ## Description
 
-With this back-end app, Sequelize and Express allow inventory management for any e-commerce site to be simple and updatable. With the help of Postman, various merchandise can be created, updated, or deleted with associated API routes.
+With this back-end app, Sequelize and Express allow inventory management for any e-commerce site to be simple and updatable. With the help of Postman and MySQL Workbench, various merchandise can be created, updated, or deleted with associated API routes.
 
 ## Deployed Application
 
 This challenge does not include a deployed application. Instead, a screen-recorded video is submitted alongside the github repo link.
 
-Video link: 
-
-## Future Improvements
-
- * 
+Video link: https://drive.google.com/file/d/1AHNXq9GSggx14o8fe0lQl0DnKLrFwNSg/view
 
 ## Usage
 
 Below is a screenshot of Shopaholic.
 
-![Shopaholic screenshot 1]()
+![Shopaholic screenshot 1](./Develop/assets/images/Shopaholic_screenshot_1.JPG)
+![Shopaholic screenshot 2](./Develop/assets/images/Shopaholic_screenshot_2.JPG)
 
 ## Credits
 
