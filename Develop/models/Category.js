@@ -3,13 +3,13 @@ const { Model, DataTypes } = require("sequelize");
 // Import our database connection from config.js
 const sequelize = require("../config/connection.js");
 
-// Create a new Sequelize model for category
+// Create a new Sequelize model for Category
 class Category extends Model {}
 
 // Use the init() method that extends the Model to set up fields and rules for the Category model
 Category.init(
-  // define columns
-  // An `id` is automatically created by Sequelize, though best practice would be to define the primary key ourseblves
+  // Define columns
+  // An `id` is automatically created by Sequelize, though best practice would be to define the primary key ourselves
   {
     id: {
       type: DataTypes.INTEGER,

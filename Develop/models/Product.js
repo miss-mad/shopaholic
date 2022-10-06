@@ -8,7 +8,7 @@ class Product extends Model {}
 
 // Use the init() method that extends the Model to set up fields and rules for the Product model
 Product.init(
-  // define columns
+  // Define columns
   {
     id: {
       type: DataTypes.INTEGER,
@@ -49,6 +49,7 @@ Product.init(
     timestamps: false,
     // Prevent sequelize from renaming the table
     freezeTableName: true,
+    // Sets the field option on all attributes to the snake_case version of its name
     underscored: true,
     // Notice the name is lowercase, so we'll reference as lowercase later
     modelName: "product",
