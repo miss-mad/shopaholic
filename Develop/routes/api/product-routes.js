@@ -3,15 +3,15 @@ const { Product, Category, Tag, ProductTag } = require("../../models");
 
 // "/api/products" = endpoint
 // http://localhost:3001/api/products = route
-// defaults to a get request
+// Defaults to a get request
 
-// get all products
-// should show all products in postman as an array of objects
+// Get all products
+// Should show all products in postman as an array of objects
 // POSTMAN - PRODUCT: GET ALL http://localhost:3001/api/products (get all products)
 router.get("/", (req, res) => {
-  // find all products
-  // included associated Category and Tag data
-  // no request body
+  // Find all products
+  // Included associated Category and Tag data
+  // No request body
   Product.findAll({
     include: [{ model: Category }, { model: Tag }],
   }).then((allProductData) => {
@@ -19,12 +19,12 @@ router.get("/", (req, res) => {
   });
 });
 
-// get one product
+// Get one product
 // POSTMAN - PRODUCT: GET ONE http://localhost:3001/api/products/4 (vinyl record)
 router.get("/:id", (req, res) => {
-  // find a single product by its `id`
-  // included associated Category and Tag data
-  // no request body
+  // Find a single product by its "id"
+  // Included associated Category and Tag data
+  // No request body
   Product.findOne({
     where: {
       id: req.params.id,
@@ -35,8 +35,8 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// create new product
-// POSTMAN - PRODUCT: POST http://localhost:3001/api/products/ (Sandals)
+// Create new product
+// POSTMAN - PRODUCT: POST http://localhost:3001/api/products (Sandals)
 router.post("/", (req, res) => {
   /* req.body should look like this...
     {
@@ -55,7 +55,7 @@ router.post("/", (req, res) => {
   */
   Product.create(req.body)
     .then((product) => {
-      // if there are product tags, we need to create pairings to bulk create in the ProductTag model
+      // If there are product tags, we need to create pairings to bulk create in the ProductTag model
       if (req.body.tagIds.length) {
         const productTagIdArr = req.body.tagIds.map((tag_id) => {
           return {
@@ -65,7 +65,7 @@ router.post("/", (req, res) => {
         });
         return ProductTag.bulkCreate(productTagIdArr);
       }
-      // if no product tags, just respond
+      // If no product tags, just respond
       res.status(200).json(product);
     })
     .then((productTagIds) => res.status(200).json(productTagIds))
@@ -75,10 +75,10 @@ router.post("/", (req, res) => {
     });
 });
 
-// update product
+// Update product
 // POSTMAN - PRODUCT: PUT http://localhost:3001/api/products/6 (update sandals bc they're on sale)
 router.put("/:id", (req, res) => {
-  // update product data
+  // Update product data
   /* req.body should look like this...
     {
     "product_name": "Sandals - Sale!",
@@ -96,13 +96,13 @@ router.put("/:id", (req, res) => {
     },
   })
     .then((product) => {
-      // find all associated tags from ProductTag
+      // Find all associated tags from ProductTag
       return ProductTag.findAll({ where: { product_id: req.params.id } });
     })
     .then((productTags) => {
-      // get list of current tag_ids
+      // Get list of current tag_ids
       const productTagIds = productTags.map(({ tag_id }) => tag_id);
-      // create filtered list of new tag_ids
+      // Create filtered list of new tag_ids
       const newProductTags = req.body.tagIds
         .filter((tag_id) => !productTagIds.includes(tag_id))
         .map((tag_id) => {
@@ -111,12 +111,12 @@ router.put("/:id", (req, res) => {
             tag_id,
           };
         });
-      // figure out which ones to remove
+      // Figure out which ones to remove
       const productTagsToRemove = productTags
         .filter(({ tag_id }) => !req.body.tagIds.includes(tag_id))
         .map(({ id }) => id);
 
-      // run both actions
+      // Run both actions
       return Promise.all([
         ProductTag.destroy({ where: { id: productTagsToRemove } }),
         ProductTag.bulkCreate(newProductTags),
@@ -129,11 +129,11 @@ router.put("/:id", (req, res) => {
     });
 });
 
-// delete product
+// Delete product
 // POSTMAN - PRODUCT: DELETE http://localhost:3001/api/products/6 (delete sandals)
 router.delete("/:id", (req, res) => {
-  // delete one product by its `id` value
-  // no request body
+  // Delete one product by its "id" value
+  // No request body
   Product.destroy({
     where: {
       id: req.params.id,

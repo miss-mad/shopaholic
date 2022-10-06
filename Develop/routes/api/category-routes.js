@@ -4,12 +4,12 @@ const { Category, Product } = require("../../models");
 // "/api/categories" = endpoint
 // http://localhost:3001/api/categories = route
 
-// get all categories
+// Get all categories
 // POSTMAN - CATEGORY: GET ALL http://localhost:3001/api/categories (get all categories)
 router.get("/", (req, res) => {
-  // find all categories
-  // be sure to include its associated Products
-  // no request body
+  // Find all categories
+  // Be sure to include its associated Products
+  // No request body
   Category.findAll({
     include: [{ model: Product }],
   }).then((allCategoryData) => {
@@ -17,12 +17,12 @@ router.get("/", (req, res) => {
   });
 });
 
-// get one category
+// Get one category
 // POSTMAN - CATEGORY: GET ONE http://localhost:3001/api/categories/3 (music)
 router.get("/:id", (req, res) => {
-  // find one category by its `id` value
-  // be sure to include its associated Products
-  // no request body
+  // Find one category by its "id" value
+  // Be sure to include its associated Products
+  // No request body
   Category.findOne({
     where: {
       id: req.params.id,
@@ -33,7 +33,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// create new category
+// Create new category
 // POSTMAN - CATEGORY: POST http://localhost:3001/api/categories/ (Pants)
 router.post("/", (req, res) => {
   /* req.body should look like this...
@@ -51,10 +51,10 @@ router.post("/", (req, res) => {
     });
 });
 
-// update category
+// Update category
 // POSTMAN - CATEGORY: PUT http://localhost:3001/api/categories/6 (Pants renamed to Sunglasses)
 router.put("/:id", (req, res) => {
-  // update a category by its `id` value
+  // Update a category by its "id" value
   /* req.body should look like this...
     {
       "category_name": "Sunglasses"
@@ -73,11 +73,11 @@ router.put("/:id", (req, res) => {
     });
 });
 
-// delete category
+// Delete category
 // POSTMAN - CATEGORY: DELETE http://localhost:3001/api/categories/6 (Sunglasses)
 router.delete("/:id", (req, res) => {
-  // delete a category by its `id` value
-  // no request body
+  // Delete a category by its "id" value
+  // No request body
   Category.destroy({
     where: {
       id: req.params.id,

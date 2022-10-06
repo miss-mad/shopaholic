@@ -4,12 +4,12 @@ const { Tag, Product, ProductTag } = require("../../models");
 // "/api/tags" = endpoint
 // http://localhost:3001/api/tags = route
 
-// get all tags
+// Get all tags
 // POSTMAN - TAG: GET ALL http://localhost:3001/api/tags (get all tags)
 router.get("/", (req, res) => {
-  // find all tags
-  // be sure to include its associated Product data
-  // no request body
+  // Find all tags
+  // Be sure to include its associated Product data
+  // No request body
   Tag.findAll({
     include: [{ model: Product }],
   }).then((allTagData) => {
@@ -17,12 +17,12 @@ router.get("/", (req, res) => {
   });
 });
 
-// get one tag
+// Get one tag
 // POSTMAN - TAG: GET ONE http://localhost:3001/api/tags/2 (pop music)
 router.get("/:id", (req, res) => {
-  // find a single tag by its `id`
-  // be sure to include its associated Product data
-  // no request body
+  // Find a single tag by its "id"
+  // Be sure to include its associated Product data
+  // No request body
   Tag.findOne({
     where: {
       id: req.params.id,
@@ -33,7 +33,7 @@ router.get("/:id", (req, res) => {
   });
 });
 
-// create new tag
+// Create new tag
 // POSTMAN - TAG: POST http://localhost:3001/api/tags/ (orange)
 router.post("/", (req, res) => {
   /* req.body should look like this...
@@ -51,10 +51,10 @@ router.post("/", (req, res) => {
     });
 });
 
-// update tag
+// Update tag
 // POSTMAN - TAG: PUT http://localhost:3001/api/tags/6 ()
 router.put("/:id", (req, res) => {
-  // update a tag's name by its `id` value
+  // Update a tag's name by its "id" value
   /* req.body should look like this...
     {
       "tag_name": "purple"
@@ -70,11 +70,11 @@ router.put("/:id", (req, res) => {
     });
 });
 
-// delete tag
+// Delete tag
 // POSTMAN - TAG: DELETE http://localhost:3001/api/tags/9 (orange)
 router.delete("/:id", (req, res) => {
-  // delete on tag by its `id` value
-  // no request body
+  // Delete on tag by its "id" value
+  // No request body
   Tag.destroy({
     where: {
       id: req.params.id,
